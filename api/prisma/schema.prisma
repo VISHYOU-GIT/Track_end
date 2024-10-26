@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Stops {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  coordinates Coordinates[]
+}
+
+type Coordinates {
+  latitude  String
+  longitude String
+}
+
+model Buses {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  busNumber     String
+  vehicleNumber String
+  vehicleType   vehicleType
+  
+}
+
+model Drivers {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  personalDetails     PersonalDetails[]
+  verificationDetails VerificationDetails[]
+}
+model Conductors {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  personalDetails     PersonalDetails[]
+  verificationDetails VerificationDetails[]
+}
+type PersonalDetails {
+  name         String
+  email        String
+  mobileNumber String
+  dateOfBirth  DateTime
+}
+
+type VerificationDetails {
+  aadharCard     String
+  drivingLicense String
+}
+
+
+enum vehicleType {
+  Bus
+  Van
+  Car
+}
