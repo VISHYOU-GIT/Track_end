@@ -11,6 +11,9 @@ const port = 3000;
 // app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));                       
 app.use(express.json());
 app.use("/api/buses", busRoute);
+app.get("/", (req, res) => {
+    res.send("Welcome to Bus Tracker API");
+})
 // app.use("/api/stops", stopRoute);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`);
